@@ -1,8 +1,3 @@
-import '@/styles/globals.css';
-
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
 export default function Home() {
   return (
     <main className="min-h-screen bg-white text-gray-800 flex flex-col items-center justify-center p-6">
