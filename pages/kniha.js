@@ -40,6 +40,13 @@ export default function KnihaPage() {
       ));
   };
 
+  const groupedChapters = chapters.reduce((acc, ch) => {
+    const part = ch.book_parts?.title || 'Bez části';
+    if (!acc[part]) acc[part] = [];
+    acc[part].push(ch);
+    return acc;
+  }, {});
+
   const renderContent = () => {
     if (!activeChapter) return null;
     return (
@@ -84,15 +91,19 @@ export default function KnihaPage() {
     <div className="flex">
       {/* Sidebar */}
       <div className="hidden md:block w-64 bg-gray-100 p-4 border-r h-screen overflow-y-auto">
-        <h1 className="text-xl font-bold mb-4">📖 Зміст</h1>
-        {chapters.map((ch) => (
-          <div
-            key={ch.id}
-            className={`cursor-pointer p-2 rounded hover:bg-gray-200 ${activeChapter?.id === ch.id ? 'bg-gray-300' : ''}`}
-            onClick={() => setActiveChapter(ch)}
-          >
-            <p className="text-sm text-gray-500">{ch.book_parts?.title || 'Без частини'}</p>
-            <p className="font-medium">{ch.chapter_title}</p>
+        <h1 className="text-xl font-bold mb-4">📖 Změst</h1>
+        {Object.entries(groupedChapters).map(([partTitle, partChapters]) => (
+          <div key={partTitle} className="mb-4">
+            <h2 className="text-sm font-semibold text-gray-600 mb-1">{partTitle}</h2>
+            {partChapters.map((ch) => (
+              <div
+                key={ch.id}
+                className={`cursor-pointer p-2 rounded hover:bg-gray-200 ${activeChapter?.id === ch.id ? 'bg-gray-300' : ''}`}
+                onClick={() => setActiveChapter(ch)}
+              >
+                <p className="font-medium">{ch.chapter_title}</p>
+              </div>
+            ))}
           </div>
         ))}
       </div>
