@@ -12,6 +12,7 @@ export default function KnihaPage() {
   const [activeChapter, setActiveChapter] = useState(null);
   const [language, setLanguage] = useState('uk'); // uk by default
   const [showTranslation, setShowTranslation] = useState(true);
+  const [openParts, setOpenParts] = useState({});
 
   useEffect(() => {
     const fetchChapters = async () => {
@@ -46,6 +47,13 @@ export default function KnihaPage() {
     acc[part].push(ch);
     return acc;
   }, {});
+
+  const togglePart = (partTitle) => {
+    setOpenParts((prev) => ({
+      ...prev,
+      [partTitle]: !prev[partTitle],
+    }));
+  };
 
   const renderContent = () => {
     if (!activeChapter) return null;
@@ -94,16 +102,30 @@ export default function KnihaPage() {
         <h1 className="text-xl font-bold mb-4">📖 Změst</h1>
         {Object.entries(groupedChapters).map(([partTitle, partChapters]) => (
           <div key={partTitle} className="mb-4">
-            <h2 className="text-sm font-semibold text-gray-600 mb-1">{partTitle}</h2>
-            {partChapters.map((ch) => (
-              <div
-                key={ch.id}
-                className={`cursor-pointer p-2 rounded hover:bg-gray-200 ${activeChapter?.id === ch.id ? 'bg-gray-300' : ''}`}
-                onClick={() => setActiveChapter(ch)}
-              >
-                <p className="font-medium">{ch.chapter_title}</p>
+            <button
+              onClick={() => togglePart(partTitle)}
+              className="flex items-center w-full text-left font-semibold text-gray-700 hover:bg-gray-200 p-2 rounded"
+            >
+              <span className="mr-2">📘</span>
+              <span className="flex-1">{partTitle}</span>
+              <span>{openParts[partTitle] ? '▲' : '▼'}</span>
+            </button>
+            {openParts[partTitle] && (
+              <div className="pl-4 mt-1">
+                {partChapters.map((ch, index) => (
+                  <div
+                    key={ch.id}
+                    className={`cursor-pointer p-2 rounded hover:bg-gray-200 ${activeChapter?.id === ch.id ? 'bg-gray-300' : ''}`}
+                    onClick={() => setActiveChapter(ch)}
+                  >
+                    <p className="text-sm">
+                      <span className="text-gray-500 mr-1">{index + 1}.</span>
+                      {ch.chapter_title}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         ))}
       </div>
