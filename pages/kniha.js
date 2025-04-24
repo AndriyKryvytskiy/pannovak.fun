@@ -11,6 +11,7 @@ export default function KnihaPage() {
   const [chapters, setChapters] = useState([]);
   const [activeChapter, setActiveChapter] = useState(null);
   const [language, setLanguage] = useState('uk'); // uk by default
+  const [showTranslation, setShowTranslation] = useState(true);
 
   useEffect(() => {
     const fetchChapters = async () => {
@@ -29,21 +30,20 @@ export default function KnihaPage() {
   }, []);
 
   const getParagraphs = (text) => {
-  if (!text) return null;
-  return text
-    .split(/\n{2,}/)               // делим по двойному переносу
-    .map((p, i) => (
-      <p key={i} className="mb-4 whitespace-pre-line">
-        {p.trim()}
-      </p>
-    ));
-};
-
+    if (!text) return null;
+    return text
+      .split(/\n{2,}/)
+      .map((p, i) => (
+        <p key={i} className="mb-4 whitespace-pre-line">
+          {p.trim()}
+        </p>
+      ));
+  };
 
   const renderContent = () => {
     if (!activeChapter) return null;
     return (
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-4 rounded shadow">
           <h2 className="text-lg font-semibold mb-4">🇨🇿 Český originál</h2>
           {getParagraphs(activeChapter.content_cz)}
@@ -53,18 +53,28 @@ export default function KnihaPage() {
             <h2 className="text-lg font-semibold">
               {language === 'uk' ? '🇺🇦 Український переклад' : '🇷🇺 Русский перевод'}
             </h2>
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              className="border p-1 rounded"
-            >
-              <option value="uk">Українська</option>
-              <option value="ru">Русский</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="border p-1 rounded"
+              >
+                <option value="uk">Українська</option>
+                <option value="ru">Русский</option>
+              </select>
+              <button
+                onClick={() => setShowTranslation(!showTranslation)}
+                className="text-sm bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded"
+              >
+                {showTranslation ? '🙈 Skrýt překlad' : '👀 Zobrazit překlad'}
+              </button>
+            </div>
           </div>
-          {language === 'uk'
-            ? getParagraphs(activeChapter.content_uk)
-            : getParagraphs(activeChapter.content_ru || 'Переклад недоступний.')}
+          {showTranslation && (
+            language === 'uk'
+              ? getParagraphs(activeChapter.content_uk)
+              : getParagraphs(activeChapter.content_ru || 'Переклад недоступний.')
+          )}
         </div>
       </div>
     );
@@ -73,7 +83,7 @@ export default function KnihaPage() {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 p-4 border-r h-screen overflow-y-auto">
+      <div className="hidden md:block w-64 bg-gray-100 p-4 border-r h-screen overflow-y-auto">
         <h1 className="text-xl font-bold mb-4">📖 Зміст</h1>
         {chapters.map((ch) => (
           <div
@@ -88,7 +98,7 @@ export default function KnihaPage() {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-4 sm:p-6 md:p-8">
         {renderContent()}
       </div>
     </div>
