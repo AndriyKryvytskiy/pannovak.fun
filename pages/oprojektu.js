@@ -40,7 +40,7 @@ export default function OProjektu() {
             description="Bývalá bezpečákyně, současná předsedkyně Klubu pisatelů stížností. Ví, jak má svět fungovat – a nebojí se to napsat."
           />
           <PersonCard
-            name="Dědeček Škranc"
+            name="Dědeček"
             image="/images/dedecek.png"
             description="Švýcarský stratég a mentor. Posílá dopisy a káže životní moudrost. V obleku i na horách."
           />
