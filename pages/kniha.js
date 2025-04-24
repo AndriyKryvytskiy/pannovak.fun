@@ -1,43 +1,88 @@
-import { useEffect, useState } from 'react'
-import { supabase } from '../lib/supabaseClient'
+// pages/kniha.js
 
-export default function Kniha() {
-  const [chapters, setChapters] = useState([])
-  const [error, setError] = useState(null)
+import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+export default function KnihaPage() {
+  const [chapters, setChapters] = useState([]);
+  const [activeChapter, setActiveChapter] = useState(null);
+  const [language, setLanguage] = useState('uk'); // uk by default
 
   useEffect(() => {
     const fetchChapters = async () => {
-      const { data, error } = await supabase.from('chapters').select('*')
-
-      if (error) {
-        console.error('Supabase error:', error)
-        setError('Nepodařilo se načíst kapitoly.')
-      } else {
-        setChapters(data ?? [])
+      const { data, error } = await supabase
+        .from('book_chapters')
+        .select('id, chapter_title, content_cz, content_uk, content_ru, book_parts (title)')
+        .order('order');
+      if (!error) {
+        setChapters(data);
+        if (data.length > 0) {
+          setActiveChapter(data[0]);
+        }
       }
-    }
+    };
+    fetchChapters();
+  }, []);
 
-    fetchChapters()
-  }, [])
+  const getParagraphs = (text) => {
+    return text.split(/\n{2,}/).map((p, i) => <p key={i} className="mb-4">{p}</p>);
+  };
+
+  const renderContent = () => {
+    if (!activeChapter) return null;
+    return (
+      <div className="grid grid-cols-2 gap-6">
+        <div className="bg-white p-4 rounded shadow">
+          <h2 className="text-lg font-semibold mb-4">🇨🇿 Český originál</h2>
+          {getParagraphs(activeChapter.content_cz)}
+        </div>
+        <div className="bg-white p-4 rounded shadow">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">
+              {language === 'uk' ? '🇺🇦 Український переклад' : '🇷🇺 Русский перевод'}
+            </h2>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="border p-1 rounded"
+            >
+              <option value="uk">Українська</option>
+              <option value="ru">Русский</option>
+            </select>
+          </div>
+          {language === 'uk'
+            ? getParagraphs(activeChapter.content_uk)
+            : getParagraphs(activeChapter.content_ru || 'Переклад недоступний.')}
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <main className="p-6">
-      <h1 className="text-3xl font-bold mb-4">📖 Kapitoly</h1>
+    <div className="flex">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-100 p-4 border-r h-screen overflow-y-auto">
+        <h1 className="text-xl font-bold mb-4">📖 Зміст</h1>
+        {chapters.map((ch) => (
+          <div
+            key={ch.id}
+            className={`cursor-pointer p-2 rounded hover:bg-gray-200 ${activeChapter?.id === ch.id ? 'bg-gray-300' : ''}`}
+            onClick={() => setActiveChapter(ch)}
+          >
+            <p className="text-sm text-gray-500">{ch.book_parts?.title || 'Без частини'}</p>
+            <p className="font-medium">{ch.chapter_title}</p>
+          </div>
+        ))}
+      </div>
 
-      {error && <p className="text-red-600 mb-4">{error}</p>}
-
-      {chapters.length === 0 ? (
-        <p>Žádné kapitoly zatím nejsou.</p>
-      ) : (
-        <ul className="space-y-4">
-          {chapters.map((c) => (
-            <li key={c.id} className="border border-gray-200 p-4 rounded shadow">
-              <h2 className="text-xl font-semibold mb-2">{c.title}</h2>
-              <p className="text-gray-700 whitespace-pre-line">{c.content}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
-  )
+      {/* Main content */}
+      <div className="flex-1 p-8">
+        {renderContent()}
+      </div>
+    </div>
+  );
 }
