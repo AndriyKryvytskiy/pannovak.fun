@@ -8,7 +8,7 @@ export default function Home() {
         Čeština, humor a život v jedné knize. Interaktivní průvodce světem jazykových zvláštností a absurdní reality.
       </p>
       <div className="flex gap-4 flex-wrap justify-center">
-        <a href="/kniha1" className="px-6 py-3 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition">
+        <a href="/kniha" className="px-6 py-3 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition">
           📖 Číst knihu
         </a>
         <a href="/oprojektu" className="px-6 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-2xl shadow hover:bg-gray-200 transition">
