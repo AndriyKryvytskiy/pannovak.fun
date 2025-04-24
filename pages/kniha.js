@@ -29,8 +29,16 @@ export default function KnihaPage() {
   }, []);
 
   const getParagraphs = (text) => {
-    return text.split(/\n{2,}/).map((p, i) => <p key={i} className="mb-4">{p}</p>);
-  };
+  if (!text) return null;
+  return text
+    .split(/\n{2,}/)               // делим по двойному переносу
+    .map((p, i) => (
+      <p key={i} className="mb-4 whitespace-pre-line">
+        {p.trim()}
+      </p>
+    ));
+};
+
 
   const renderContent = () => {
     if (!activeChapter) return null;
