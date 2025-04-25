@@ -11,6 +11,7 @@ export default function Home() {
       <p className="text-lg md:text-xl text-center max-w-xl mb-8">
         Čeština, humor a život v jedné knize. Interaktivní průvodce světem jazykových zvláštností a absurdní reality.
       </p>
+
       <div className="flex gap-4 flex-wrap justify-center mb-8">
         <a href="/kniha" className="px-6 py-3 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition">
           📖 Číst knihu
@@ -21,7 +22,14 @@ export default function Home() {
         <a href="/kontakt" className="px-6 py-3 bg-green-600 text-white rounded-2xl shadow hover:bg-green-700 transition">
           ✉️ Kontakt
         </a>
+        <a href="/hangman" className="px-6 py-3 bg-purple-600 text-white rounded-2xl shadow hover:bg-purple-700 transition">
+          🎯 Věšák (substantiva)
+        </a>
+        <a href="/od-autoru" className="px-6 py-3 bg-pink-600 text-white rounded-2xl shadow hover:bg-pink-700 transition">
+          ✍️ Od autorů
+        </a>
       </div>
+
       <div className="flex gap-4 flex-wrap justify-center">
         <a href="/kniha_cz" className="px-5 py-2 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition">
           🇨🇿 Kniha česky
