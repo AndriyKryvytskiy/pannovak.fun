@@ -6,6 +6,46 @@ const words = [
   { word: "pes", hint: "Лучший друг человека" },
 ];
 
+function HangmanDrawing({ tries }) {
+  return (
+    <div className="relative w-32 h-64 mx-auto">
+      {/* Основание */}
+      <div className="absolute bottom-0 left-0 w-full h-2 bg-black" />
+      {/* Стойка */}
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2 h-full bg-black" />
+      {/* Перекладина */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-2 bg-black" />
+      {/* Верёвка */}
+      <div className="absolute top-0 left-[calc(50%+5.5rem)] w-2 h-10 bg-black" />
+
+      {/* Голова */}
+      {tries > 0 && (
+        <div className="absolute top-10 left-[calc(50%+5rem)] w-8 h-8 border-2 border-black rounded-full" />
+      )}
+      {/* Туловище */}
+      {tries > 1 && (
+        <div className="absolute top-18 left-[calc(50%+5.75rem)] w-1 h-12 bg-black" />
+      )}
+      {/* Левая рука */}
+      {tries > 2 && (
+        <div className="absolute top-20 left-[calc(50%+5.75rem)] w-12 h-1 bg-black rotate-[-45deg] origin-left" />
+      )}
+      {/* Правая рука */}
+      {tries > 3 && (
+        <div className="absolute top-20 left-[calc(50%+5.75rem)] w-12 h-1 bg-black rotate-[45deg] origin-right" />
+      )}
+      {/* Левая нога */}
+      {tries > 4 && (
+        <div className="absolute top-28 left-[calc(50%+5.75rem)] w-10 h-1 bg-black rotate-[-45deg] origin-left" />
+      )}
+      {/* Правая нога */}
+      {tries > 5 && (
+        <div className="absolute top-28 left-[calc(50%+5.75rem)] w-10 h-1 bg-black rotate-[45deg] origin-right" />
+      )}
+    </div>
+  );
+}
+
 export default function Hangman() {
   const maxTries = 6;
 
@@ -65,7 +105,8 @@ export default function Hangman() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <h1 className="text-3xl font-bold mb-4">Věšák (Виселица)</h1>
-      <p className="text-lg mb-2">Подсказка: {hint}</p>
+      <HangmanDrawing tries={tries} />
+      <p className="text-lg mb-2 mt-6">Подсказка: {hint}</p>
       <p className="text-2xl font-mono tracking-widest mb-4">{wordCompletion}</p>
       <p className="mb-2">Ошибки: {tries} / {maxTries}</p>
 
