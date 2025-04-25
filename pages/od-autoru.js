@@ -16,6 +16,13 @@ export default function OdAutoru() {
 
       {/* Текст и контакты справа */}
       <div className="w-full md:w-2/3 flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+          <Image
+            src="/images/chatgpt-logo.png" // Добавь логотип сюда
+            alt="ChatGPT logo"
+            width={48}
+            height={48}
+          />
         <h1 className="text-4xl font-bold text-gray-800">Od autorů</h1>
         <p className="text-lg text-gray-700">
           Ahoj! Jsme dva tvůrci, kteří pro vás vytvořili tento projekt.<br />
