@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 
-// Настройки подключения уже есть
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -15,20 +13,6 @@ const czechAlphabet = [
 ];
 
 const englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-function TarotCard({ tries, maxTries }) {
-  const opacity = tries / maxTries;
-  return (
-    <div className="absolute inset-0">
-      <Image
-        src="/images/hanged_man_tarot.png"
-        alt="The Hanged Man Tarot"
-        fill
-        style={{ objectFit: "cover", opacity: Math.min(opacity + 0.2, 1) }}
-      />
-    </div>
-  );
-}
 
 export default function Hangman() {
   const [categories, setCategories] = useState([]);
@@ -200,43 +184,40 @@ export default function Hangman() {
       )}
 
       {(gameStatus === "playing" || gameStatus === "won" || gameStatus === "lost") && (
-        <>
-          <TarotCard tries={tries} maxTries={maxTries} />
-          <div className="z-10 text-center">
-            <p className="text-lg mb-2">Nápověda: {hint}</p>
-            <p className="text-2xl font-mono tracking-widest mb-4">{wordCompletion.toUpperCase()}</p>
-            <p className="mb-2">Chyb: {tries} / {maxTries}</p>
+        <div className="z-10 text-center">
+          <p className="text-lg mb-2">Nápověda: {hint}</p>
+          <p className="text-2xl font-mono tracking-widest mb-4">{wordCompletion.toUpperCase()}</p>
+          <p className="mb-2">Chyb: {tries} / {maxTries}</p>
 
-            <div className="grid grid-cols-8 gap-2 mb-6">
-              {alphabet.map((letter) => (
-                <button
-                  key={letter}
-                  onClick={() => handleLetterClick(letter)}
-                  disabled={guessedLetters.includes(letter.toLowerCase()) || gameStatus !== "playing"}
-                  className="bg-blue-500 text-white p-2 rounded disabled:bg-gray-400"
-                >
-                  {letter}
-                </button>
-              ))}
-            </div>
-
-            {(gameStatus === "won" || gameStatus === "lost") && (
-              <div className="mt-6">
-                {gameStatus === "won" ? (
-                  <p className="text-green-600 text-xl font-bold">Správně! Slovo bylo: {selectedWord.toUpperCase()}</p>
-                ) : (
-                  <div>
-                    <p className="text-red-600 text-xl font-bold">Prohráli jste! Slovo bylo: {selectedWord.toUpperCase()}</p>
-                    <p className="mt-4 italic">"{motivationalQuote}"</p>
-                  </div>
-                )}
-                <button onClick={resetGame} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
-                  Začít znovu
-                </button>
-              </div>
-            )}
+          <div className="grid grid-cols-8 gap-2 mb-6">
+            {alphabet.map((letter) => (
+              <button
+                key={letter}
+                onClick={() => handleLetterClick(letter)}
+                disabled={guessedLetters.includes(letter.toLowerCase()) || gameStatus !== "playing"}
+                className={`p-2 rounded text-white ${guessedLetters.includes(letter.toLowerCase()) ? 'bg-gray-400' : 'bg-blue-500'} disabled:opacity-50`}
+              >
+                {letter}
+              </button>
+            ))}
           </div>
-        </>
+
+          {(gameStatus === "won" || gameStatus === "lost") && (
+            <div className="mt-6">
+              {gameStatus === "won" ? (
+                <p className="text-green-600 text-xl font-bold">Správně! Slovo bylo: {selectedWord.toUpperCase()}</p>
+              ) : (
+                <div>
+                  <p className="text-red-600 text-xl font-bold">Prohráli jste! Slovo bylo: {selectedWord.toUpperCase()}</p>
+                  <p className="mt-4 italic">"{motivationalQuote}"</p>
+                </div>
+              )}
+              <button onClick={resetGame} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
+                Začít znovu
+              </button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
