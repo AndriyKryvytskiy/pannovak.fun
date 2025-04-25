@@ -195,7 +195,9 @@ export default function Hangman() {
                 key={letter}
                 onClick={() => handleLetterClick(letter)}
                 disabled={guessedLetters.includes(letter.toLowerCase()) || gameStatus !== "playing"}
-                className={`p-2 rounded text-white ${guessedLetters.includes(letter.toLowerCase()) ? 'bg-gray-400' : 'bg-blue-500'} disabled:opacity-50`}
+                className={`p-2 rounded 
+                  ${guessedLetters.includes(letter.toLowerCase()) ? 'bg-gray-400 text-white' : 'bg-blue-500 text-white hover:bg-blue-700'}
+                  disabled:cursor-not-allowed`}
               >
                 {letter}
               </button>
