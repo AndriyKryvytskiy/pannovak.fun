@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -15,6 +16,8 @@ const czechAlphabet = [
 const englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Hangman() {
+  const router = useRouter();
+
   const [categories, setCategories] = useState([]);
   const [words, setWords] = useState([]);
   const [selectedWord, setSelectedWord] = useState("");
@@ -61,8 +64,10 @@ export default function Hangman() {
     }
   }
 
-  function startGame(level) {
-    setMaxTries(level === "easy" ? 8 : 6);
+  function startGame(level = null) {
+    if (level) {
+      setMaxTries(level === "easy" ? 8 : 6);
+    }
     setTries(0);
     setGuessedLetters([]);
 
@@ -206,7 +211,7 @@ export default function Hangman() {
           </div>
 
           {(gameStatus === "won" || gameStatus === "lost") && (
-            <div className="mt-6">
+            <div className="mt-6 space-y-4">
               {gameStatus === "won" ? (
                 <p className="text-green-600 text-xl font-bold">Správně! Slovo bylo: {selectedWord.toUpperCase()}</p>
               ) : (
@@ -215,8 +220,14 @@ export default function Hangman() {
                   <p className="mt-4 italic">"{motivationalQuote}"</p>
                 </div>
               )}
-              <button onClick={resetGame} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
-                Začít znovu
+              <button onClick={() => startGame()} className="bg-green-500 text-white px-4 py-2 rounded">
+                Další slovo
+              </button>
+              <button onClick={resetGame} className="bg-yellow-500 text-white px-4 py-2 rounded">
+                Změnit kategorii
+              </button>
+              <button onClick={() => router.push('/')} className="bg-red-500 text-white px-4 py-2 rounded">
+                Ukončit hru
               </button>
             </div>
           )}
