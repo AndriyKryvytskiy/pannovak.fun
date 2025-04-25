@@ -26,13 +26,13 @@ export default function OdAutoru() {
         <div className="mt-6 space-y-2 text-md text-gray-700">
           <p>
             📧 <span className="font-semibold">E-mail:</span> <a
-              href="mailto:tvoje@domena.cz"
+              href="mailto:kryvytskiy_av@outlook.com"
               className="text-blue-600 hover:underline"
             >tvoje@domena.cz</a>
           </p>
           <p>
             🔗 <span className="font-semibold">LinkedIn:</span> <a
-              href="https://www.linkedin.com/in/tvoje-jmeno"
+              href="www.linkedin.com/in/andriy-kryvytskiy-35909227"
               className="text-blue-600 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
