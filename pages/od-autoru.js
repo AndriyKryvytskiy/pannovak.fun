@@ -28,15 +28,15 @@ export default function OdAutoru() {
             📧 <span className="font-semibold">E-mail:</span> <a
               href="mailto:kryvytskiy_av@outlook.com"
               className="text-blue-600 hover:underline"
-            >tkryvytskiy_av@outlook.com</a>
+            >kryvytskiy_av@outlook.com</a>
           </p>
           <p>
             🔗 <span className="font-semibold">LinkedIn:</span> <a
-              href="www.linkedin.com/in/andriy-kryvytskiy-35909227"
+              href="https://www.linkedin.com/in/andriy-kryvytskiy-35909227"
               className="text-blue-600 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
-            >linkedin.com/in/andriy-kryvytskiy-35909227</a>
+            >https://www.linkedin.com/in/andriy-kryvytskiy-35909227</a>
           </p>
         </div>
       </div>
