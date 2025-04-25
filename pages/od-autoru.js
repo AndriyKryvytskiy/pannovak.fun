@@ -18,7 +18,7 @@ export default function OdAutoru() {
       <div className="w-full md:w-2/3 flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <Image
-            src="https://chatgptaihub.com/openai-chatgpt-logo/" // Добавь логотип сюда
+            src="chatgpt-logo.webp" // Добавь логотип сюда
             alt="ChatGPT logo"
             width={48}
             height={48}
