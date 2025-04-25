@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 const czechAlphabet = [
-  "A", "B", "C", "Č", "D", "Ď", "E", "É", "Ě", "F", "G", "H", "CH",
+  "A", "B", "C", "Č", "D", "Ď", "E", "É", "Ě", "F", "G", "H",
   "I", "Í", "J", "K", "L", "M", "N", "Ň", "O", "Ó", "P", "Q", "R", "Ř", "S",
   "Š", "T", "Ť", "U", "Ú", "Ů", "V", "W", "X", "Y", "Ý", "Z", "Ž"
 ];
@@ -34,7 +34,7 @@ export default function Hangman() {
   }, []);
 
   async function fetchCategories() {
-    const { data, error } = await supabase.from("categories").select("*");
+    const { data } = await supabase.from("categories").select("*");
     if (data) {
       setCategories(data);
       setGameStatus("choose");
@@ -42,7 +42,7 @@ export default function Hangman() {
   }
 
   async function fetchWords(categoryId) {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("words")
       .select("*")
       .eq("category_id", categoryId);
@@ -52,7 +52,7 @@ export default function Hangman() {
   }
 
   async function fetchRandomQuote() {
-    const { data, error } = await supabase.from("quotestaro").select("*");
+    const { data } = await supabase.from("quotestaro").select("*");
     if (data && data.length > 0) {
       const random = data[Math.floor(Math.random() * data.length)];
       if (languageHint === "cz") setMotivationalQuote(random.text_cz);
@@ -84,8 +84,8 @@ export default function Hangman() {
   }
 
   const handleLetterClick = (letter) => {
-    if (gameStatus !== "playing" || guessedLetters.includes(letter)) return;
-    setGuessedLetters([...guessedLetters, letter]);
+    if (gameStatus !== "playing" || guessedLetters.includes(letter.toLowerCase())) return;
+    setGuessedLetters((prev) => [...prev, letter.toLowerCase()]);
 
     if (selectedWord.includes(letter.toLowerCase())) {
       const updatedCompletion = selectedWord
@@ -117,6 +117,7 @@ export default function Hangman() {
   };
 
   const alphabet = languageGuess === "cz" ? czechAlphabet : englishAlphabet;
+  const guessed = guessedLetters.map((l) => l.toLowerCase());
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 overflow-hidden">
@@ -194,9 +195,9 @@ export default function Hangman() {
               <button
                 key={letter}
                 onClick={() => handleLetterClick(letter)}
-                disabled={guessedLetters.includes(letter.toLowerCase()) || gameStatus !== "playing"}
+                disabled={guessed.includes(letter.toLowerCase()) || gameStatus !== "playing"}
                 className={`p-2 rounded 
-                  ${guessedLetters.includes(letter.toLowerCase()) ? 'bg-gray-400 text-white' : 'bg-blue-500 text-white hover:bg-blue-700'}
+                  ${guessed.includes(letter.toLowerCase()) ? 'bg-gray-400 text-white' : 'bg-blue-500 text-white hover:bg-blue-700'}
                   disabled:cursor-not-allowed`}
               >
                 {letter}
