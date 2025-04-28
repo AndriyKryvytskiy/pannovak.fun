@@ -1,8 +1,8 @@
-// pages/kniha_cz.js
-
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import ReactMarkdown from 'react-markdown';
 
+// Создаем клиента Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -27,25 +27,23 @@ export default function KnihaCzPage() {
 
   return (
     <main className="min-h-screen bg-white text-gray-900 p-4">
-      <div className="max-w-xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4 text-center">📘 Kniha česky</h1>
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8 text-center">📘 Kniha česky</h1>
 
         {chapter && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">{chapter.chapter_title}</h2>
-            {chapter.content_cz
-              .split(/\n{2,}/)
-              .map((p, i) => (
-                <p key={i} className="mb-4 whitespace-pre-line leading-relaxed">{p.trim()}</p>
-              ))}
+            <h2 className="text-2xl font-semibold mb-4 text-center">{chapter.chapter_title}</h2>
+            <ReactMarkdown className="prose prose-lg max-w-none">
+              {chapter.content_cz}
+            </ReactMarkdown>
           </div>
         )}
 
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-8">
           <button
             disabled={activeChapterIndex === 0}
             onClick={() => setActiveChapterIndex(i => Math.max(i - 1, 0))}
-            className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+            className="px-6 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
           >
             ⬅️ Předchozí
           </button>
@@ -53,7 +51,7 @@ export default function KnihaCzPage() {
           <button
             disabled={activeChapterIndex === chapters.length - 1}
             onClick={() => setActiveChapterIndex(i => Math.min(i + 1, chapters.length - 1))}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+            className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
           >
             Další ➡️
           </button>
