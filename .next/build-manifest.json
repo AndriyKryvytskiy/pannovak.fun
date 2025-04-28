@@ -27,6 +27,11 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/kniha_cz": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/kniha_cz.js"
+    ],
     "/test": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
