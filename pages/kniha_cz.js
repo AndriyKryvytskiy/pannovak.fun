@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'; // Для поддержки таблиц, списков и ссылок
 
-// Создаем клиента Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -18,7 +18,12 @@ export default function KnihaCzPage() {
         .from('book_chapters')
         .select('chapter_title, content_cz')
         .order('order');
-      if (!error) setChapters(data);
+      if (error) {
+        console.error('Supabase fetch error:', error);
+      } else {
+        console.log('Supabase fetch success:', data);
+        setChapters(data);
+      }
     };
     fetchData();
   }, []);
@@ -32,10 +37,12 @@ export default function KnihaCzPage() {
 
         {chapter && (
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 text-center">{chapter.chapter_title}</h2>
-            <ReactMarkdown className="prose prose-lg max-w-none">
-              {chapter.content_cz}
-            </ReactMarkdown>
+            <h2 className="text-2xl font-semibold mb-6 text-center">{chapter.chapter_title}</h2>
+            <div className="prose prose-lg max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {chapter.content_cz || ''}
+              </ReactMarkdown>
+            </div>
           </div>
         )}
 
