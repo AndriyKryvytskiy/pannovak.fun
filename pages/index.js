@@ -38,6 +38,13 @@ export default function Home() {
           🇺🇦 Книга українською
         </a>
       </div>
+
+      <div className="flex gap-4 flex-wrap justify-center">
+        <a href="/podekovani" className="px-5 py-2 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition">
+          🇨🇿 Kniha česky
+        </a>
+
+      </div>
     </main>
   );
 }
