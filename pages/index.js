@@ -13,7 +13,7 @@ export default function Home() {
 
       <div className="flex gap-4 flex-wrap justify-center mb-8">
         <a href="/kniha" className="px-6 py-3 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition">
-          📖 Číst knihu
+          📖 Číst knihu (pouze pro PC)
         </a>
         <a href="/oprojektu" className="px-6 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-2xl shadow hover:bg-gray-200 transition">
           📚 O projektu
