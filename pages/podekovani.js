@@ -24,7 +24,7 @@ export default function Podekovani() {
         <li><strong>Radomile Kotkové</strong></li>
         <li><strong>Janě Novákové</strong></li>
         <li><strong>Nikole Popperové</strong></li>
-        <li><strong>a</strong></li>
+        <p><strong>a</strong></p>
         <li><strong>Barboře Khomenko</strong></li>
       </ul>
 
