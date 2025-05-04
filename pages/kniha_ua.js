@@ -16,7 +16,7 @@ export default function KnihaCzPage() {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from('book_chapters')
-        .select('chapter_title, content_cz')
+        .select('chapter_title, content_ua')
         .order('order');
       if (error) {
         console.error('Supabase fetch error:', error);
