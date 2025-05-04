@@ -63,7 +63,7 @@ export default function LekceList() {
                 <div key={section.id} className="p-4 border rounded bg-white shadow">
                   <h3 className="font-semibold mb-2 capitalize text-gray-600">{section.section_type}</h3>
                   <ReactMarkdown className="prose prose-sm max-w-none text-gray-800">
-                    {section.content}
+                    {section.content.replace(/\\n/g, '\n')}
                   </ReactMarkdown>
                 </div>
               ))}
