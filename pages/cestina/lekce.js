@@ -66,6 +66,12 @@ export default function LekceList() {
                   <ReactMarkdown
                     className="prose prose-sm max-w-none text-gray-800"
                     remarkPlugins={[remarkGfm]}
+                    components={{
+                      table: (props) => <table className="border border-gray-400 w-full" {...props} />,
+                      thead: (props) => <thead className="bg-gray-100" {...props} />,
+                      th: (props) => <th className="border border-gray-400 px-2 py-1 text-left" {...props} />,
+                      td: (props) => <td className="border border-gray-300 px-2 py-1" {...props} />
+                    }}
                   >
                     {section.content.replace(/\\n/g, '\n')}
                   </ReactMarkdown>
