@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -62,7 +63,10 @@ export default function LekceList() {
               {sections.map((section) => (
                 <div key={section.id} className="p-4 border rounded bg-white shadow">
                   <h3 className="font-semibold mb-2 capitalize text-gray-600">{section.section_type}</h3>
-                  <ReactMarkdown className="prose prose-sm max-w-none text-gray-800">
+                  <ReactMarkdown
+                    className="prose prose-sm max-w-none text-gray-800"
+                    remarkPlugins={[remarkGfm]}
+                  >
                     {section.content.replace(/\\n/g, '\n')}
                   </ReactMarkdown>
                 </div>
