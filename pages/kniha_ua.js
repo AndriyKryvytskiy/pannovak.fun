@@ -33,14 +33,14 @@ export default function KnihaCzPage() {
   return (
     <main className="min-h-screen bg-white text-gray-900 p-4">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center">📘 Kniha česky</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">📘 Читати Українською </h1>
 
         {chapter && (
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-6 text-center">{chapter.chapter_title}</h2>
             <div className="prose prose-lg max-w-none">
               <ReactMarkdown>
-                {chapter.content_cz || ''}
+                {chapter.content_uk || ''}
               </ReactMarkdown>
             </div>
           </div>
