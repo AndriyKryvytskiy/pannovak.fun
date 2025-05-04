@@ -16,7 +16,7 @@ export default function KnihaCzPage() {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from('book_chapters')
-        .select('chapter_title, content_uk')
+        .select('title_uk, content_uk')
         .order('order');
       if (error) {
         console.error('Supabase fetch error:', error);
@@ -43,7 +43,7 @@ export default function KnihaCzPage() {
           >
             {chapters.map((ch, i) => (
               <option key={i} value={i}>
-                {i + 1}. {ch.chapter_title}
+                {i + 1}. {ch.title_uk}
               </option>
             ))}
           </select>
@@ -53,7 +53,7 @@ export default function KnihaCzPage() {
         {chapter && (
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-6 text-center">
-              {chapter.chapter_title}
+              {chapter.title_uk}
             </h2>
             <div className="prose prose-lg max-w-none">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
