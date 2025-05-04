@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -57,11 +58,13 @@ export default function LekceList() {
         {selectedLesson && (
           <div className="bg-gray-50 border-t pt-6">
             <h2 className="text-2xl font-bold mb-4">🧾 Náhled: {selectedLesson.title}</h2>
-            <div className="space-y-4">
+            <div className="space-y-6">
               {sections.map((section) => (
                 <div key={section.id} className="p-4 border rounded bg-white shadow">
-                  <h3 className="font-semibold mb-2 capitalize">{section.section_type}</h3>
-                  <pre className="whitespace-pre-wrap text-sm text-gray-800">{section.content}</pre>
+                  <h3 className="font-semibold mb-2 capitalize text-gray-600">{section.section_type}</h3>
+                  <ReactMarkdown className="prose prose-sm max-w-none text-gray-800">
+                    {section.content}
+                  </ReactMarkdown>
                 </div>
               ))}
               <div className="mt-6">
