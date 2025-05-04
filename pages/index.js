@@ -6,16 +6,20 @@ export default function Home() {
 
       {/* Верхние ссылки */}
       <div className="flex gap-4 flex-wrap justify-center mb-8">
-        <a href="/oprojektu" className="px-6 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-2xl shadow hover:bg-gray-200 transition">
-          📚 O projektu
-        </a>
-        <a href="/kontakt" className="px-6 py-3 bg-green-600 text-white rounded-2xl shadow hover:bg-green-700 transition">
-          ✉️ Kontakt
-        </a>
-        <a href="/podekovani" className="px-6 py-3 bg-indigo-600 text-white rounded-2xl shadow hover:bg-indigo-700 transition">
-          🙏 Poděkování
-        </a>
+          <a href="/oprojektu" className="px-6 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-2xl shadow hover:bg-gray-200 transition">
+            📚 O projektu
+          </a>
+          <a href="/kontakt" className="px-6 py-3 bg-green-600 text-white rounded-2xl shadow hover:bg-green-700 transition">
+            ✉️ Kontakt
+          </a>
+          <a href="/podekovani" className="px-6 py-3 bg-indigo-600 text-white rounded-2xl shadow hover:bg-indigo-700 transition">
+            🙏 Poděkování
+          </a>
+          <a href="/cestina" className="px-6 py-3 bg-yellow-400 text-white rounded-2xl shadow hover:bg-yellow-500 transition">
+            🧠 Čeština od pana Nováka
+          </a>
       </div>
+
 
       {/* Заголовок и описание */}
       <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center">
