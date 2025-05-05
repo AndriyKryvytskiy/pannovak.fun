@@ -61,6 +61,9 @@ export default function Home() {
           <a href="/hangman" className="px-6 py-3 bg-purple-600 text-white rounded-2xl shadow hover:bg-purple-700 transition">
             🎯 Věšák (substantiva)
           </a>
+          <a href="/hry" className="px-6 py-3 bg-purple-600 text-white rounded-2xl shadow hover:bg-purple-700 transition">
+            🎮 Herní portál – Zahrajte si s panem Novákem
+          </a>
         </div>
       </div>
 

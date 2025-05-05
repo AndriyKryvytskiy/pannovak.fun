@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/kniha": "pages/kniha.js"
+  "/hry": "pages/hry.js",
+  "/hry/spoj": "pages/hry/spoj.js",
+  "/hry/memory": "pages/hry/memory.js"
 }
