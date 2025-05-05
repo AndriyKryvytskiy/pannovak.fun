@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/hry": "pages/hry.js",
-  "/hry/spoj": "pages/hry/spoj.js",
-  "/hry/memory": "pages/hry/memory.js"
+  "/hry/kdo-rekl": "pages/hry/kdo-rekl.js",
+  "/": "pages/index.js",
+  "/hry": "pages/hry.js"
 }
