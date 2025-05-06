@@ -11,19 +11,19 @@ export default function KdoReklGame() {
   const fetchQuote = async () => {
     setSelected(null)
     setResult(null)
+
     const { data, error } = await supabase
       .from('quotes_citat')
       .select('*')
-      .order('RANDOM()')
-      .limit(1)
 
     if (error) {
       console.error('Chyba při načítání citátu:', error)
       return
     }
 
-    if (data && data[0]) {
-      setQuote(data[0])
+    if (data && data.length > 0) {
+      const random = data[Math.floor(Math.random() * data.length)]
+      setQuote(random)
     }
   }
 
@@ -31,35 +31,48 @@ export default function KdoReklGame() {
     fetchQuote()
   }, [])
 
-  const handleAnswer = (option) => {
-    setSelected(option)
-    setResult(option === quote.correct_author)
-  }
-
   if (!quote) return <p className="text-center p-6">Načítám citát...</p>
 
-  return (
-    <div className="p-4 space-y-6 max-w-2xl mx-auto text-center">
-      <h2 className="text-xl font-bold mb-2">🗣️ Čí je to citát?</h2>
-      <p className="italic text-lg">„{quote.quote}“</p>
+  let options = []
+  try {
+    options = Array.isArray(quote.options)
+      ? quote.options
+      : JSON.parse(quote.options)
+  } catch (e) {
+    options = []
+  }
 
-      <div className="grid gap-4 mt-4">
-        {quote.options.map((option, idx) => (
+  const handleAnswer = (author) => {
+    setSelected(author)
+    setResult(author === quote.correct_author)
+  }
+
+  return (
+    <div className="p-6 max-w-2xl mx-auto text-center space-y-6">
+      <h2 className="text-2xl font-bold">🗣️ Čí je to citát?</h2>
+
+      <blockquote className="italic text-lg bg-gray-100 p-4 rounded shadow">
+        „{quote.quote}“
+      </blockquote>
+
+      <div className="grid gap-4">
+        {options.map((author, index) => (
           <button
-            key={idx}
-            onClick={() => handleAnswer(option)}
-            className={`p-2 border rounded shadow text-lg transition
-              ${selected
-                ? option === quote.correct_author
-                  ? 'bg-green-200'
-                  : option === selected
-                  ? 'bg-red-200'
-                  : 'bg-white'
-                : 'hover:bg-gray-100'}
-            `}
+            key={index}
+            onClick={() => handleAnswer(author)}
             disabled={!!selected}
+            className={`px-4 py-2 border rounded text-lg transition
+              ${
+                selected
+                  ? author === quote.correct_author
+                    ? 'bg-green-200'
+                    : author === selected
+                    ? 'bg-red-200'
+                    : 'bg-white'
+                  : 'hover:bg-gray-100'
+              }`}
           >
-            {option}
+            {author}
           </button>
         ))}
       </div>

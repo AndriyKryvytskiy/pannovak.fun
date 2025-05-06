@@ -27,7 +27,7 @@ export default function HryIndex() {
           <a href="/hry/memory" className="px-6 py-3 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition">
             🧠 Ironické memory
           </a>
-          <a href="/hry/kdo-rekl" className="px-6 py-3 bg-green-600 text-white rounded-2xl shadow hover:bg-green-700 transition">
+          <a href="/hry/kdorekl" className="px-6 py-3 bg-green-600 text-white rounded-2xl shadow hover:bg-green-700 transition">
             🕵️‍♂️ Kdo to řekl: Novák, Kafka nebo Čapek?
           </a>
           <div className="px-6 py-3 bg-gray-200 text-gray-600 rounded-2xl shadow italic">
